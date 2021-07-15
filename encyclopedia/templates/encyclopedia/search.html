@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia: Search Results
+{% endblock %}
+
+{% block body %}
+    {% if request.method == "GET" %}
+        <div class="text_not_found">
+            <h1>You forgot to search for something</h1>
+        </div>
+    {% else %}
+        {% if results %}
+            <ul class="entries">
+            {% for result in results %}
+                <li><a href="{% url 'encyclopedia:get_entry' result %}">{{ result }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h1>No results found</h1>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
