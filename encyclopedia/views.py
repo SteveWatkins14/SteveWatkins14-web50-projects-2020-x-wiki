@@ -1,3 +1,4 @@
+from django.http.response import Http404
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -34,15 +35,14 @@ def index(request):
 
 
 def get_entry(request, entry):
-    if entry in util.list_entries():
-        html = Markdown().convert(util.get_entry(entry))
+    if entry not in util.list_entries():
+        raise Http404("Page does not exist")
     else:
-        html = "",
-    
-    return render(request, "encyclopedia/entry.html", {
-        "title": entry,
-        "text": html,
-    })
+        html = Markdown().convert(util.get_entry(entry))
+        return render(request, "encyclopedia/entry.html", {
+            "title": entry,
+            "text": html,
+        })
 
 
 def search(request):
