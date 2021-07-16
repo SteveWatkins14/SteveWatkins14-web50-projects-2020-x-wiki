@@ -1,4 +1,4 @@
 {
     "terminal.integrated.automationShell.linux": "",
-    "git.decorations.enabled": false,
+    "git.decorations.enabled": true,
 }
